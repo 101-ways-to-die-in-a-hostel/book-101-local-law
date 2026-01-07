@@ -11,7 +11,7 @@
   },
   "tagline": "Some hostels are a bargain. Others cost you your life.",
   "synopsis": {
-    "short": "",
+    "short": "[Single sentence describing how the victim dies]",
     "long": ""
   },
   "death_type": "Local Law",
@@ -29,5 +29,6 @@
     "google_play": "",
     "audible": "",
     "kobo": ""
-  }
+  },
+  "death_teaser": "[Catchy one-liner for marketing/cover]"
 }
