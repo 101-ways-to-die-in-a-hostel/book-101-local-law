@@ -2,6 +2,8 @@
   "version": 2,
   "name": "101ways-local-law",
   "routes": [
+    { "src": "/chapters/(.*)", "dest": "/chapters/$1" },
+    { "src": "/read", "dest": "/read.html" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }

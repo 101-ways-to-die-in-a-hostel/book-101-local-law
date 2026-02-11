@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read — Local Law | 101 Ways to Die in a Hostel</title>
+
+    <meta name="description" content="Read Local Law online — Book #101 in the 101 Ways to Die in a Hostel series by Jonathan ANDERSON">
+    <meta name="author" content="Jonathan ANDERSON">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- Marked.js for markdown rendering -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <style>
+        :root {
+            --color-bg: #0a0a0a;
+            --color-text: #e5e5e5;
+            --color-accent: #dc2626;
+            --color-accent-hover: #ef4444;
+            --color-muted: #737373;
+            --color-card: #171717;
+            --color-sidebar: #111111;
+            --color-sidebar-hover: #1e1e1e;
+            --color-border: #2a2a2a;
+            --font-display: 'Creepster', cursive;
+            --font-body: 'Inter', sans-serif;
+            --font-prose: 'Lora', serif;
+            --sidebar-width: 300px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            background: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            line-height: 1.6;
+        }
+
+        /* Top bar */
+        .topbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: var(--color-card);
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            align-items: center;
+            padding: 0 1rem;
+            z-index: 100;
+            gap: 1rem;
+        }
+
+        .topbar-brand {
+            font-family: var(--font-display);
+            color: var(--color-accent);
+            text-decoration: none;
+            font-size: 1.1rem;
+            white-space: nowrap;
+        }
+
+        .topbar-title {
+            flex: 1;
+            text-align: center;
+            font-size: 0.9rem;
+            color: var(--color-muted);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .topbar-home {
+            color: var(--color-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .topbar-home:hover { color: var(--color-text); }
+
+        .sidebar-toggle {
+            background: none;
+            border: none;
+            color: var(--color-text);
+            font-size: 1.4rem;
+            cursor: pointer;
+            padding: 0.25rem;
+            line-height: 1;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            bottom: 0;
+            width: var(--sidebar-width);
+            background: var(--color-sidebar);
+            border-right: 1px solid var(--color-border);
+            overflow-y: auto;
+            z-index: 90;
+            transition: transform 0.3s ease;
+            padding-bottom: 2rem;
+        }
+
+        .sidebar.closed {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-part {
+            padding: 1rem 1rem 0.25rem;
+            font-family: var(--font-display);
+            font-size: 0.85rem;
+            color: var(--color-accent);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .sidebar-chapter {
+            display: block;
+            padding: 0.5rem 1rem 0.5rem 1.5rem;
+            color: var(--color-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-left: 3px solid transparent;
+            transition: all 0.15s ease;
+        }
+
+        .sidebar-chapter:hover {
+            background: var(--color-sidebar-hover);
+            color: var(--color-text);
+        }
+
+        .sidebar-chapter.active {
+            color: var(--color-text);
+            border-left-color: var(--color-accent);
+            background: var(--color-sidebar-hover);
+        }
+
+        .sidebar-chapter .ch-num {
+            color: var(--color-accent);
+            font-weight: 600;
+            margin-right: 0.35rem;
+        }
+
+        /* Main content area */
+        .main {
+            margin-left: var(--sidebar-width);
+            margin-top: 56px;
+            transition: margin-left 0.3s ease;
+        }
+
+        .main.expanded {
+            margin-left: 0;
+        }
+
+        .chapter-content {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+            font-family: var(--font-prose);
+            font-size: 1.1rem;
+            line-height: 1.85;
+            color: #d4d4d4;
+        }
+
+        /* Markdown rendered styles */
+        .chapter-content h1 {
+            font-family: var(--font-display);
+            font-size: 2.2rem;
+            color: var(--color-text);
+            margin-bottom: 2rem;
+            text-align: center;
+            line-height: 1.2;
+        }
+
+        .chapter-content h2,
+        .chapter-content h3 {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .chapter-content h2 { font-size: 1.4rem; }
+        .chapter-content h3 { font-size: 1.15rem; }
+
+        .chapter-content p {
+            margin-bottom: 1.25rem;
+            text-align: justify;
+            hyphens: auto;
+        }
+
+        .chapter-content em {
+            font-style: italic;
+        }
+
+        .chapter-content strong {
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .chapter-content hr {
+            border: none;
+            text-align: center;
+            margin: 2.5rem 0;
+            color: var(--color-muted);
+        }
+
+        .chapter-content hr::after {
+            content: '*   *   *';
+            font-family: var(--font-prose);
+            letter-spacing: 0.3em;
+        }
+
+        .chapter-content blockquote {
+            border-left: 3px solid var(--color-accent);
+            margin: 1.5rem 0;
+            padding: 0.5rem 1.5rem;
+            color: var(--color-muted);
+            font-style: italic;
+        }
+
+        /* Nav bar at bottom */
+        .chapter-nav {
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 2rem 4rem;
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .chapter-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.25rem;
+            background: var(--color-card);
+            color: var(--color-text);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background 0.2s ease;
+        }
+
+        .chapter-nav a:hover {
+            background: var(--color-border);
+        }
+
+        .chapter-nav .prev { margin-right: auto; }
+        .chapter-nav .next { margin-left: auto; }
+
+        .chapter-nav .label {
+            color: var(--color-muted);
+            font-size: 0.75rem;
+        }
+
+        /* Loading state */
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--color-muted);
+            font-style: italic;
+        }
+
+        .error-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--color-accent);
+        }
+
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 56px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--color-border);
+            z-index: 95;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--color-accent);
+            width: 0%;
+            transition: width 0.1s linear;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            :root {
+                --sidebar-width: 280px;
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main {
+                margin-left: 0;
+            }
+
+            .chapter-content {
+                padding: 2rem 1.25rem 3rem;
+                font-size: 1rem;
+            }
+
+            .chapter-nav {
+                padding: 0 1.25rem 3rem;
+            }
+
+            /* Overlay when sidebar is open on mobile */
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 56px;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0,0,0,0.6);
+                z-index: 85;
+            }
+
+            .sidebar-overlay.visible {
+                display: block;
+            }
+        }
+
+        /* Scrollbar */
+        .sidebar::-webkit-scrollbar { width: 6px; }
+        .sidebar::-webkit-scrollbar-track { background: var(--color-sidebar); }
+        .sidebar::-webkit-scrollbar-thumb { background: var(--color-border); border-radius: 3px; }
+        .sidebar::-webkit-scrollbar-thumb:hover { background: var(--color-muted); }
+
+        /* Keyboard focus */
+        .sidebar-chapter:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: -2px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top bar -->
+    <header class="topbar">
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle chapter list">&#9776;</button>
+        <a href="/" class="topbar-brand">Local Law</a>
+        <span class="topbar-title" id="topbarTitle">Select a chapter</span>
+        <a href="/" class="topbar-home">Back to Home</a>
+    </header>
+
+    <!-- Reading progress -->
+    <div class="progress-bar"><div class="progress-bar-fill" id="progressFill"></div></div>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-part">Part 1: Setup</div>
+        <a class="sidebar-chapter" href="#chapter-01"><span class="ch-num">1</span> Arrival</a>
+        <a class="sidebar-chapter" href="#chapter-02"><span class="ch-num">2</span> The German</a>
+        <a class="sidebar-chapter" href="#chapter-03"><span class="ch-num">3</span> Petaling Street</a>
+        <a class="sidebar-chapter" href="#chapter-04"><span class="ch-num">4</span> The Crew</a>
+        <a class="sidebar-chapter" href="#chapter-05"><span class="ch-num">5</span> Content Creator</a>
+        <a class="sidebar-chapter" href="#chapter-06"><span class="ch-num">6</span> The Envelope</a>
+        <a class="sidebar-chapter" href="#chapter-07"><span class="ch-num">7</span> The Law You Don't Know</a>
+        <a class="sidebar-chapter" href="#chapter-08"><span class="ch-num">8</span> The Package</a>
+        <a class="sidebar-chapter" href="#chapter-09"><span class="ch-num">9</span> The Map of the Dead</a>
+        <a class="sidebar-chapter" href="#chapter-10"><span class="ch-num">10</span> Comfortable</a>
+
+        <div class="sidebar-part">Part 2: Escalation</div>
+        <a class="sidebar-chapter" href="#chapter-11"><span class="ch-num">11</span> The Upgrade</a>
+        <a class="sidebar-chapter" href="#chapter-12"><span class="ch-num">12</span> Don't Ask</a>
+        <a class="sidebar-chapter" href="#chapter-13"><span class="ch-num">13</span> The Other Traveler</a>
+        <a class="sidebar-chapter" href="#chapter-14"><span class="ch-num">14</span> The Law</a>
+        <a class="sidebar-chapter" href="#chapter-15"><span class="ch-num">15</span> The Checkpoint</a>
+        <a class="sidebar-chapter" href="#chapter-16"><span class="ch-num">16</span> Tomoko's Camera</a>
+        <a class="sidebar-chapter" href="#chapter-17"><span class="ch-num">17</span> Easy Money</a>
+        <a class="sidebar-chapter" href="#chapter-18"><span class="ch-num">18</span> Jake Leaves</a>
+        <a class="sidebar-chapter" href="#chapter-19"><span class="ch-num">19</span> The Backpack</a>
+        <a class="sidebar-chapter" href="#chapter-20"><span class="ch-num">20</span> The Phone Shop</a>
+
+        <div class="sidebar-part">Part 3: Crisis</div>
+        <a class="sidebar-chapter" href="#chapter-21"><span class="ch-num">21</span> The Noose</a>
+        <a class="sidebar-chapter" href="#chapter-22"><span class="ch-num">22</span> Priya vs Felix</a>
+        <a class="sidebar-chapter" href="#chapter-23"><span class="ch-num">23</span> The Truth</a>
+        <a class="sidebar-chapter" href="#chapter-24"><span class="ch-num">24</span> The System</a>
+        <a class="sidebar-chapter" href="#chapter-25"><span class="ch-num">25</span> No Exit</a>
+        <a class="sidebar-chapter" href="#chapter-26"><span class="ch-num">26</span> Countdown</a>
+        <a class="sidebar-chapter" href="#chapter-27"><span class="ch-num">27</span> The Card</a>
+        <a class="sidebar-chapter" href="#chapter-28"><span class="ch-num">28</span> Priya Leaves</a>
+        <a class="sidebar-chapter" href="#chapter-29"><span class="ch-num">29</span> Running</a>
+        <a class="sidebar-chapter" href="#chapter-30"><span class="ch-num">30</span> The Suitcase</a>
+
+        <div class="sidebar-part">Part 4: Climax</div>
+        <a class="sidebar-chapter" href="#chapter-31"><span class="ch-num">31</span> Terminal</a>
+        <a class="sidebar-chapter" href="#chapter-32"><span class="ch-num">32</span> Dang Wangi</a>
+        <a class="sidebar-chapter" href="#chapter-33"><span class="ch-num">33</span> The Hours</a>
+        <a class="sidebar-chapter" href="#chapter-34"><span class="ch-num">34</span> Rizal</a>
+        <a class="sidebar-chapter" href="#chapter-35"><span class="ch-num">35</span> Confession</a>
+        <a class="sidebar-chapter" href="#chapter-36"><span class="ch-num">36</span> Meanwhile</a>
+        <a class="sidebar-chapter" href="#chapter-37"><span class="ch-num">37</span> The Blue Towel</a>
+        <a class="sidebar-chapter" href="#chapter-38"><span class="ch-num">38</span> Discovery</a>
+        <a class="sidebar-chapter" href="#chapter-39"><span class="ch-num">39</span> The Morning After</a>
+        <a class="sidebar-chapter" href="#chapter-40"><span class="ch-num">40</span> 3 AM</a>
+
+        <div class="sidebar-part">Part 5: Aftermath</div>
+        <a class="sidebar-chapter" href="#chapter-41"><span class="ch-num">41</span> The Official Version</a>
+        <a class="sidebar-chapter" href="#chapter-42"><span class="ch-num">42</span> Priya's War</a>
+        <a class="sidebar-chapter" href="#chapter-43"><span class="ch-num">43</span> The Investigation</a>
+        <a class="sidebar-chapter" href="#chapter-44"><span class="ch-num">44</span> Priya Returns</a>
+        <a class="sidebar-chapter" href="#chapter-45"><span class="ch-num">45</span> The Parents</a>
+        <a class="sidebar-chapter" href="#chapter-46"><span class="ch-num">46</span> The Photographs</a>
+        <a class="sidebar-chapter" href="#chapter-47"><span class="ch-num">47</span> The Reckoning</a>
+        <a class="sidebar-chapter" href="#chapter-48"><span class="ch-num">48</span> The Next One</a>
+        <a class="sidebar-chapter" href="#chapter-49"><span class="ch-num">49</span> @HostelReaper</a>
+        <a class="sidebar-chapter" href="#chapter-50"><span class="ch-num">50</span> Bed 7</a>
+    </nav>
+
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- Main reading area -->
+    <main class="main" id="main">
+        <div class="chapter-content" id="chapterContent">
+            <div class="loading">Select a chapter from the sidebar to begin reading.</div>
+        </div>
+        <nav class="chapter-nav" id="chapterNav" style="display:none;">
+            <a href="#" class="prev" id="prevLink">
+                <span aria-hidden="true">&larr;</span>
+                <span><span class="label">Previous</span><br><span id="prevTitle"></span></span>
+            </a>
+            <a href="#" class="next" id="nextLink">
+                <span><span class="label">Next</span><br><span id="nextTitle"></span></span>
+                <span aria-hidden="true">&rarr;</span>
+            </a>
+        </nav>
+    </main>
+
+    <script>
+        // Chapter data
+        const chapters = [
+            { id: 'chapter-01', num: 1, title: 'Arrival' },
+            { id: 'chapter-02', num: 2, title: 'The German' },
+            { id: 'chapter-03', num: 3, title: 'Petaling Street' },
+            { id: 'chapter-04', num: 4, title: 'The Crew' },
+            { id: 'chapter-05', num: 5, title: 'Content Creator' },
+            { id: 'chapter-06', num: 6, title: 'The Envelope' },
+            { id: 'chapter-07', num: 7, title: 'The Law You Don\'t Know' },
+            { id: 'chapter-08', num: 8, title: 'The Package' },
+            { id: 'chapter-09', num: 9, title: 'The Map of the Dead' },
+            { id: 'chapter-10', num: 10, title: 'Comfortable' },
+            { id: 'chapter-11', num: 11, title: 'The Upgrade' },
+            { id: 'chapter-12', num: 12, title: 'Don\'t Ask' },
+            { id: 'chapter-13', num: 13, title: 'The Other Traveler' },
+            { id: 'chapter-14', num: 14, title: 'The Law' },
+            { id: 'chapter-15', num: 15, title: 'The Checkpoint' },
+            { id: 'chapter-16', num: 16, title: 'Tomoko\'s Camera' },
+            { id: 'chapter-17', num: 17, title: 'Easy Money' },
+            { id: 'chapter-18', num: 18, title: 'Jake Leaves' },
+            { id: 'chapter-19', num: 19, title: 'The Backpack' },
+            { id: 'chapter-20', num: 20, title: 'The Phone Shop' },
+            { id: 'chapter-21', num: 21, title: 'The Noose' },
+            { id: 'chapter-22', num: 22, title: 'Priya vs Felix' },
+            { id: 'chapter-23', num: 23, title: 'The Truth' },
+            { id: 'chapter-24', num: 24, title: 'The System' },
+            { id: 'chapter-25', num: 25, title: 'No Exit' },
+            { id: 'chapter-26', num: 26, title: 'Countdown' },
+            { id: 'chapter-27', num: 27, title: 'The Card' },
+            { id: 'chapter-28', num: 28, title: 'Priya Leaves' },
+            { id: 'chapter-29', num: 29, title: 'Running' },
+            { id: 'chapter-30', num: 30, title: 'The Suitcase' },
+            { id: 'chapter-31', num: 31, title: 'Terminal' },
+            { id: 'chapter-32', num: 32, title: 'Dang Wangi' },
+            { id: 'chapter-33', num: 33, title: 'The Hours' },
+            { id: 'chapter-34', num: 34, title: 'Rizal' },
+            { id: 'chapter-35', num: 35, title: 'Confession' },
+            { id: 'chapter-36', num: 36, title: 'Meanwhile' },
+            { id: 'chapter-37', num: 37, title: 'The Blue Towel' },
+            { id: 'chapter-38', num: 38, title: 'Discovery' },
+            { id: 'chapter-39', num: 39, title: 'The Morning After' },
+            { id: 'chapter-40', num: 40, title: '3 AM' },
+            { id: 'chapter-41', num: 41, title: 'The Official Version' },
+            { id: 'chapter-42', num: 42, title: 'Priya\'s War' },
+            { id: 'chapter-43', num: 43, title: 'The Investigation' },
+            { id: 'chapter-44', num: 44, title: 'Priya Returns' },
+            { id: 'chapter-45', num: 45, title: 'The Parents' },
+            { id: 'chapter-46', num: 46, title: 'The Photographs' },
+            { id: 'chapter-47', num: 47, title: 'The Reckoning' },
+            { id: 'chapter-48', num: 48, title: 'The Next One' },
+            { id: 'chapter-49', num: 49, title: '@HostelReaper' },
+            { id: 'chapter-50', num: 50, title: 'Bed 7' },
+        ];
+
+        // DOM elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const main = document.getElementById('main');
+        const content = document.getElementById('chapterContent');
+        const chapterNav = document.getElementById('chapterNav');
+        const prevLink = document.getElementById('prevLink');
+        const nextLink = document.getElementById('nextLink');
+        const prevTitle = document.getElementById('prevTitle');
+        const nextTitle = document.getElementById('nextTitle');
+        const topbarTitle = document.getElementById('topbarTitle');
+        const progressFill = document.getElementById('progressFill');
+
+        let currentChapter = null;
+        const isMobile = () => window.innerWidth <= 768;
+
+        // Sidebar toggle
+        sidebarToggle.addEventListener('click', () => {
+            if (isMobile()) {
+                sidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('visible');
+            } else {
+                sidebar.classList.toggle('closed');
+                main.classList.toggle('expanded');
+            }
+        });
+
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('visible');
+        });
+
+        // Load chapter
+        async function loadChapter(chapterId) {
+            const idx = chapters.findIndex(c => c.id === chapterId);
+            if (idx === -1) return;
+
+            const chapter = chapters[idx];
+            currentChapter = idx;
+
+            // Update active state in sidebar
+            document.querySelectorAll('.sidebar-chapter').forEach(el => el.classList.remove('active'));
+            const activeLink = document.querySelector(`.sidebar-chapter[href="#${chapterId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
+                activeLink.scrollIntoView({ block: 'nearest' });
+            }
+
+            // Update topbar
+            topbarTitle.textContent = `Chapter ${chapter.num}: ${chapter.title}`;
+            document.title = `Ch. ${chapter.num}: ${chapter.title} — Local Law`;
+
+            // Show loading
+            content.innerHTML = '<div class="loading">Loading chapter...</div>';
+
+            try {
+                const res = await fetch(`/chapters/${chapterId}.md`);
+                if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                const md = await res.text();
+                content.innerHTML = marked.parse(md);
+                window.scrollTo({ top: 0 });
+
+                // Update nav
+                chapterNav.style.display = 'flex';
+
+                if (idx > 0) {
+                    prevLink.style.display = 'inline-flex';
+                    prevLink.href = `#${chapters[idx - 1].id}`;
+                    prevTitle.textContent = `Ch. ${chapters[idx - 1].num}: ${chapters[idx - 1].title}`;
+                } else {
+                    prevLink.style.display = 'none';
+                }
+
+                if (idx < chapters.length - 1) {
+                    nextLink.style.display = 'inline-flex';
+                    nextLink.href = `#${chapters[idx + 1].id}`;
+                    nextTitle.textContent = `Ch. ${chapters[idx + 1].num}: ${chapters[idx + 1].title}`;
+                } else {
+                    nextLink.style.display = 'none';
+                }
+
+                // Save reading position
+                localStorage.setItem('locallaw-last-chapter', chapterId);
+
+            } catch (err) {
+                content.innerHTML = `<div class="error-state">Failed to load chapter.<br><small>${err.message}</small></div>`;
+            }
+
+            // Close mobile sidebar
+            if (isMobile()) {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('visible');
+            }
+        }
+
+        // Hash routing
+        function handleHash() {
+            const hash = location.hash.replace('#', '');
+            if (hash && chapters.some(c => c.id === hash)) {
+                loadChapter(hash);
+            }
+        }
+
+        window.addEventListener('hashchange', handleHash);
+
+        // Reading progress bar
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+            progressFill.style.width = `${Math.min(progress, 100)}%`;
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (currentChapter === null) return;
+            if (e.key === 'ArrowLeft' && currentChapter > 0) {
+                location.hash = chapters[currentChapter - 1].id;
+            } else if (e.key === 'ArrowRight' && currentChapter < chapters.length - 1) {
+                location.hash = chapters[currentChapter + 1].id;
+            }
+        });
+
+        // Init
+        if (location.hash) {
+            handleHash();
+        } else {
+            // Resume from last read, or show chapter 1
+            const last = localStorage.getItem('locallaw-last-chapter');
+            if (last && chapters.some(c => c.id === last)) {
+                location.hash = last;
+            } else {
+                location.hash = 'chapter-01';
+            }
+        }
+    </script>
+</body>
+</html>
