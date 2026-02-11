@@ -1,9 +1,17 @@
 {
   "version": 2,
   "name": "101ways-local-law",
-  "routes": [
-    { "src": "/chapters/(.*)", "dest": "/chapters/$1" },
-    { "src": "/read", "dest": "/read.html" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/read", "destination": "/read.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/chapters/(.*).md",
+      "headers": [
+        { "key": "Content-Type", "value": "text/markdown; charset=utf-8" },
+        { "key": "Access-Control-Allow-Origin", "value": "*" }
+      ]
+    }
   ]
 }
